@@ -22,7 +22,7 @@ void newgame::exitgame(std::thread* t) {
 void newgame::main() {
     std::thread t1(&newgame::running, this);
     while (1) {
-        int key = getch();
+        int key = _getch();
         if (key == 27) {
             exitgame(&t1);
             return;

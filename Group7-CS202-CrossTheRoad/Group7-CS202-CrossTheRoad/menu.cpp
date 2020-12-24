@@ -18,7 +18,7 @@ void menu::init() {
         color(set[2]);
         std::cout << "exit" << std::endl;
 
-        key = getch();
+        key = _getch();
 
         if (key == 72) {
             if (counter == 1)
