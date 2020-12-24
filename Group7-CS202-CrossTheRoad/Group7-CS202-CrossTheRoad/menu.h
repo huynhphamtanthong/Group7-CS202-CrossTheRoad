@@ -6,6 +6,8 @@
 #include <conio.h>
 #include <stdio.h>
 
+#include "newgame.h"
+
 class menu {
 public:
     void color(int color);

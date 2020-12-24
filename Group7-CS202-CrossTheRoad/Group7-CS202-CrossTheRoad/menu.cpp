@@ -34,9 +34,9 @@ void menu::init() {
 
         if (key == '\r') {
             if (counter == 1) {
-                system("cls");
-                std::cout << "new game" << std::endl;
-                system("pause");
+                newgame ng;
+                ng.init();
+                ng.main();
             }
             if (counter == 2) {
                 system("cls");
