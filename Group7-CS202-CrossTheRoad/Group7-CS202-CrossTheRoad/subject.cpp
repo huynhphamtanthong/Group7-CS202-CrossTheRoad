@@ -38,11 +38,11 @@ dinosaur::dinosaur() {
 	// symbol
 }
 
-dinosaur::dinosaur(int _x, int _y, int _vx, int _vy) {
+dinosaur::dinosaur(int _x, int _y, int _vx, int _vy, int level) {
 	x = _x;
 	y = _y;
-	vx = _vx;
-	vy = _vy;
+	vx = _vx * level;
+	vy = _vy * level;
 	// symbol
 }
 
@@ -71,11 +71,11 @@ bird::bird() {
 	// symbol
 }
 
-bird::bird(int _x, int _y, int _vx, int _vy) {
+bird::bird(int _x, int _y, int _vx, int _vy, int level) {
 	x = _x;
 	y = _y;
-	vx = _vx;
-	vy = _vy;
+	vx = _vx * level;
+	vy = _vy * level;
 	// symbol
 }
 
@@ -125,11 +125,11 @@ truck::truck() {
 	// symbol
 }
 
-truck::truck(int _x, int _y, int _vx, int _vy) {
+truck::truck(int _x, int _y, int _vx, int _vy, int level) {
 	x = _x;
 	y = _y;
-	vx = _vx;
-	vy = _vy;
+	vx = _vx * level;
+	vy = _vy * level;
 	// symbol
 }
 
@@ -158,11 +158,11 @@ car::car() {
 	// symbol
 }
 
-car::car(int _x, int _y, int _vx, int _vy) {
+car::car(int _x, int _y, int _vx, int _vy, int level) {
 	x = _x;
 	y = _y;
-	vx = _vx;
-	vy = _vy;
+	vx = _vx * level;
+	vy = _vy * level;
 	// symbol
 }
 

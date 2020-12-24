@@ -34,7 +34,7 @@ private:
 	char** a; // Contain the symbol;
 public:
 	dinosaur();
-	dinosaur(int, int, int, int);
+	dinosaur(int, int, int, int, int level);
 	//Access to private members
 	int getX();
 	int getY();
@@ -47,7 +47,7 @@ private:
 	char** a; // Contain the symbol;
 public:
 	bird();
-	bird(int, int, int, int);
+	bird(int, int, int, int, int level);
 	//Access to private members
 	int getX();
 	int getY();
@@ -70,7 +70,7 @@ private:
 	char** a; // Contain the symbol;
 public:
 	truck();
-	truck(int, int, int, int);
+	truck(int, int, int, int, int level);
 	//Access to private members
 	int getX();
 	int getY();
@@ -83,7 +83,7 @@ private:
 	char** a; // Contain the symbol;
 public:
 	car();
-	car(int, int, int, int);
+	car(int, int, int, int, int level);
 	//Access to private members
 	int getX();
 	int getY();
