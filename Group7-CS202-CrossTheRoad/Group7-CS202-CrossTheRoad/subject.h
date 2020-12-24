@@ -1,17 +1,93 @@
 #ifndef subject_h
 #define subject_h
 
+#include <iostream>
+#include <windows.h>
+#include <conio.h>
+#include <stdio.h>
+
 class obstacle {
-private:
+protected:
 	//coordinates and velocity
 	int x, y, vx, vy;
-	char symbol = 'X';
 public:
-	obstacle(int, int, int, int); //This constructor set the initial x, y, vx, vy
+	obstacle(); //This constructor set the initial x, y, vx, vy
+	//Access to private members
+	virtual int getX() = 0;
+	virtual int getY() = 0;
+	virtual char** getSymbol() = 0;
+	virtual void move() = 0; //Every time this is called vx is added to x, vy is added to y
+};
+
+class animal : public obstacle {
+public:
+	animal();
 	//Access to private members
 	int getX();
 	int getY();
-	char getSymbol();
+	virtual char** getSymbol() = 0;
+	void move(); //Every time this is called vx is added to x, vy is added to y
+};
+
+class dinosaur : public animal {
+private:
+	char** a; // Contain the symbol;
+public:
+	dinosaur();
+	dinosaur(int, int, int, int);
+	//Access to private members
+	int getX();
+	int getY();
+	char** getSymbol();
+	void move(); //Every time this is called vx is added to x, vy is added to y
+};
+
+class bird :public animal {
+private:
+	char** a; // Contain the symbol;
+public:
+	bird();
+	bird(int, int, int, int);
+	//Access to private members
+	int getX();
+	int getY();
+	char** getSymbol();
+	void move(); //Every time this is called vx is added to x, vy is added to y
+};
+
+class vehicle :public obstacle {
+public:
+	vehicle();
+	//Access to private members
+	int getX();
+	int getY();
+	virtual char** getSymbol() = 0;
+	void move(); //Every time this is called vx is added to x, vy is added to y
+};
+
+class truck : public vehicle {
+private:
+	char** a; // Contain the symbol;
+public:
+	truck();
+	truck(int, int, int, int);
+	//Access to private members
+	int getX();
+	int getY();
+	char** getSymbol();
+	void move(); //Every time this is called vx is added to x, vy is added to y
+};
+
+class car : public vehicle {
+private:
+	char** a; // Contain the symbol;
+public:
+	car();
+	car(int, int, int, int);
+	//Access to private members
+	int getX();
+	int getY();
+	char** getSymbol();
 	void move(); //Every time this is called vx is added to x, vy is added to y
 };
 
