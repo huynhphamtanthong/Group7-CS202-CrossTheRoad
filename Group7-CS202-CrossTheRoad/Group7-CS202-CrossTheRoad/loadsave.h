@@ -9,9 +9,9 @@
 #include <vector>
 #include <string>
 
-using namespace std;
-
 int loadgame();
+
+void savegame(int level, int point);
 
 #endif // !loadsave_h
 

@@ -7,6 +7,7 @@
 #include <stdio.h>
 
 #include "newgame.h"
+#include "loadsave.h"
 
 class menu {
 public:
