@@ -40,8 +40,8 @@ void menu::init() {
             }
             if (counter == 2) {
                 system("cls");
-                std::cout << "load game" << std::endl;
-                system("pause");
+                loadgame();
+                //system("pause");
             }
             if (counter == 3) {
                 system("cls");
