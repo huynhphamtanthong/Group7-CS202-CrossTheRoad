@@ -22,7 +22,6 @@ int loadgame(){ // Name, Level, Points
 			std::cout << "No." << i + 1 << " : " << tmp << "; Level: " << level[i] << "; Points: " << point[i] << std::endl;
 			++i;
 		}
-		std::cout << "Enter your choice: ";
 		std::cin >> choice;
 		return level[choice - 1];
 	}

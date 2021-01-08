@@ -1,366 +1,124 @@
 #include "subject.h"
 
-// Obstacle
-obstacle::obstacle() {
-	x = 0;
-	y = 0;
-	vx = 0;
-	vy = 0;
+obstacle::obstacle(Obstacle id) : id(id){
+    state = STOP;
+    isactive = false;
 }
 
-// Animal
-animal::animal() {
-	x = 0;
-	y = 0;
-	vx = 0;
-	vy = 0;
+void obstacle::init(int x, int y, COORD start, COORD end, Key mov){
+    this->start = start;
+    this->end = { end.X - s_obj[id].X , end.Y - s_obj[id].Y };
+    
+    if (x < 0) { 
+        this->x = this->end.X; 
+        mov = LEFT;
+    } else this->x = x;
+    if (y < 0) this->y = this->end.Y;
+        else this->y = y;
+    
+    isactive = true;
+    last_coord = COORD{ (short)x, (short)y };
+    move(mov);
+}
+void obstacle::setXY(int x, int y){
+    this->x = x;
+    this->y = y;
+}
+void obstacle::setSpeed(int speed) {
+    this->speed = speed;
+}
+void obstacle::setActive(bool isactive) {
+    this->isactive = isactive;
+}
+void obstacle::setAll(int x, int y, int speed, bool isactive){
+    this->x = x;
+    this->y = y;
+    this->speed = speed;
+    this->isactive = isactive;
+}
+int obstacle::getX(){
+    return x;
+}
+int obstacle::getY(){
+    return y;
+}
+COORD obstacle::getXY() {
+    return COORD{ (short)x, (short)y };
+}
+int obstacle::getSpeed(){
+    return speed;
+}
+Obstacle obstacle::getId(){
+    return id;
+}
+bool obstacle::isActive() {
+    return isactive;
+}
+void obstacle::move(Key state){
+    if (state != STOP) last_state = state;
+    this->state = state;
 }
 
-int animal::getX() {
-	return x;
+bool obstacle::update(){
+    bool check_reach_bound = false;
+    last_coord = COORD{ (short) x, (short) y };
+    switch (state){
+    case UP:
+        y -= 1;
+        break;
+    case DOWN:
+        y += 1;
+        break;
+    case LEFT:
+        x -= 1;
+        break;
+    case RIGHT:
+        x += 1;
+        break;
+    case UPLEFT:
+        y -= 1;
+        x -= 1;
+        break;
+    case UPRIGHT:
+        y -= 1;
+        x += 1;
+        break;
+    case DOWNLEFT:
+        y += 1;
+        x -= 1;
+        break;
+    case DOWNRIGHT:
+        y += 1;
+        x += 1;
+        break;
+    case STOP:
+        break;
+    default:
+        break;
+    }
+    if (id == PLAYER) state = STOP;
+
+    if (x < start.X) {
+        x = start.X;
+        check_reach_bound = true;
+    }
+    if (x > end.X) {
+        x = end.X;
+        check_reach_bound = true;
+    }
+    if (y < start.Y) {
+        y = start.Y;
+        check_reach_bound = true;
+    }
+    if (y > end.Y) {
+        y = end.Y;
+        check_reach_bound = true;
+    }
+    return check_reach_bound;
 }
 
-int animal::getY() {
-	return y;
-}
+// (x,y) on screen position, start : top-left boundary,  end : down-right boundary
 
-void animal::move() {
-	x += vx;
-	y += vy;
-}
-
-// dog
-dog::dog() {
-	x = 0;
-	y = 0;
-	vx = 0;
-	vy = 0;
-	for (int i = 0; i < 20;++i) {
-		a[i] = new char[20];
-	}
-	for (int i = 0;i < 20;++i) {
-		for (int j = 0; j < 20;++j)
-			a[i][j] = ' ';
-	}
-	drawdog();
-}
-
-dog::dog(int _x, int _y, int _vx, int _vy, int level) {
-	x = _x;
-	y = _y;
-	vx = _vx * level;
-	vy = _vy * level;
-	for (int i = 0; i < 20;++i) {
-		a[i] = new char[20];
-	}
-	for (int i = 0;i < 20;++i) {
-		for (int j = 0; j < 20;++j)
-			a[i][j] = ' ';
-	}
-	drawdog();
-}
-
-int dog::getX() {
-	return animal::getX();
-}
-
-int dog::getY() {
-	return animal::getY();
-}
-
-char** dog::getSymbol() {
-	return a;
-}
-
-//      __
-// (___()'`;
-// /,    /`
-// \\"--\\
-
-void dog::drawdog() {
-	a[x][y + 5] = '_';
-	a[x][y + 6] = '_';
-
-	a[x + 1][y] = '(';
-	a[x + 1][y + 1] = '_';
-	a[x + 1][y + 2] = '_';
-	a[x + 1][y + 3] = '_';
-	a[x + 1][y + 4] = '(';
-	a[x + 1][y + 5] = ')';
-	a[x + 1][y + 6] = 39;
-	a[x + 1][y + 7] = '`';
-	a[x + 1][y + 8] = ';';
-
-	a[x + 2][y] = '/';
-	a[x + 2][y + 1] = ',';
-	a[x + 2][y + 6] = '/';
-	a[x + 2][y + 7] = '`';
-
-	a[x + 3][y] = 92;
-	a[x + 3][y + 1] = 92;
-	a[x + 3][y + 2] = '"';
-	a[x + 3][y + 3] = '-';
-	a[x + 3][y + 4] = '-';
-	a[x + 3][y + 5] = 92;
-	a[x + 3][y + 6] = 92;
-}
-
-void dog::move() {
-	animal::move();
-}
-
-// Bird
-bird::bird() {
-	x = 0;
-	y = 0;
-	vx = 0;
-	vy = 0;
-	for (int i = 0; i < 20;++i) {
-		a[i] = new char[20];
-	}
-	for (int i = 0;i < 20;++i) {
-		for (int j = 0; j < 20;++j)
-			a[i][j] = ' ';
-	}
-	drawbird();
-}
-
-bird::bird(int _x, int _y, int _vx, int _vy, int level) {
-	x = _x;
-	y = _y;
-	vx = _vx * level;
-	vy = _vy * level;
-	for (int i = 0; i < 20;++i) {
-		a[i] = new char[20];
-	}
-	for (int i = 0;i < 20;++i) {
-		for (int j = 0; j < 20;++j)
-			a[i][j] = ' ';
-	}
-	drawbird();
-}
-
-int bird::getX() {
-	return animal::getX();
-}
-
-int bird::getY() {
-	return animal::getY();
-}
-
-char** bird::getSymbol() {
-	return a;
-}
-
-// ^v^
-
-void bird::drawbird() {
-	a[x][y] = '^';
-	a[x][y + 1] = 'v';
-	a[x][y + 2] = '^';
-}
-
-void bird::move() {
-	animal::move();
-}
-
-// Vehicle
-vehicle::vehicle() {
-	x = 0;
-	y = 0;
-	vx = 0;
-	vy = 0;
-}
-
-int vehicle::getX() {
-	return x;
-}
-
-int vehicle::getY() {
-	return y;
-}
-
-void vehicle::move() {
-	x += vx;
-	y += vy;
-}
-
-// Truck
-truck::truck() {
-	x = 0;
-	y = 0;
-	vx = 0;
-	vy = 0;
-	for (int i = 0; i < 20;++i) {
-		a[i] = new char[20];
-	}
-	for (int i = 0;i < 20;++i) {
-		for (int j = 0; j < 20;++j)
-			a[i][j] = ' ';
-	}
-	drawtruck();
-}
-
-truck::truck(int _x, int _y, int _vx, int _vy, int level) {
-	x = _x;
-	y = _y;
-	vx = _vx * level;
-	vy = _vy * level;
-	for (int i = 0; i < 20;++i) {
-		a[i] = new char[20];
-	}
-	for (int i = 0;i < 20;++i) {
-		for (int j = 0; j < 20;++j)
-			a[i][j] = ' ';
-	}
-	drawtruck();
-}
-
-int truck::getX() {
-	return vehicle::getX();
-}
-
-int truck::getY() {
-	return vehicle::getY();
-}
-
-char** truck::getSymbol() {
-	return a;
-}
-
-//	  _____
-//	 |     |__
-//	 |_____|__|
-//	 (O) (O)
-void truck::drawtruck() {
-	for (int i = 1; i <= 5; ++i)
-	{
-		a[x][y + i] = '_';
-		a[x + 2][y + i] = '_';
-	}
-	a[x + 1][y] = '|';
-	a[x + 2][y] = '|';
-	a[x + 1][y + 6] = '|';
-	a[x + 2][y + 6] = '|';
-	a[x + 2][y + 9] = '|';
-
-	a[x + 3][y] = '(';
-	a[x + 3][y + 1] = 'O';
-	a[x + 3][y + 2] = ')';
-	a[x + 3][y + 4] = '(';
-	a[x + 3][y + 5] = 'O';
-	a[x + 3][y + 6] = ')';
-	
-}
-
-void truck::move() {
-	vehicle::move();
-}
-
-// Car
-car::car() {
-	x = 0;
-	y = 0;
-	vx = 0;
-	vy = 0;
-	for (int i = 0; i < 20;++i) {
-		a[i] = new char[20];
-	}
-	for (int i = 0;i < 20;++i) {
-		for (int j = 0; j < 20;++j)
-			a[i][j] = ' ';
-	}
-	drawcar();
-}
-
-car::car(int _x, int _y, int _vx, int _vy, int level) {
-	x = _x;
-	y = _y;
-	vx = _vx * level;
-	vy = _vy * level;
-	a = new char* [20];
-	for (int i = 0; i < 20;++i) {
-		a[i] = new char[20];
-	}
-	for (int i = 0;i < 20;++i) {
-		for (int j = 0; j < 20;++j)
-			a[i][j] = ' ';
-	}
-	drawcar();
-}
-
-int car::getX() {
-	return vehicle::getX();
-}
-
-int car::getY() {
-	return vehicle::getY();
-}
-
-char** car::getSymbol() {
-	return a;
-}
-
-//   /__\
-// (O)--(O)
-void car::drawcar() {
-	a[x][y + 2] = '/';
-	a[x][y + 3] = '_';
-	a[x][y + 4] = '_';
-	a[x][y + 5] = 92;
-	a[x + 1][y] = '(';
-	a[x + 1][y + 1] = 'O';
-	a[x + 1][y + 2] = ')';
-	a[x + 1][y + 3] = '-';
-	a[x + 1][y + 4] = '-';
-	a[x + 1][y + 5] = '(';
-	a[x + 1][y + 6] = 'O';
-	a[x + 1][y + 7] = ')';
-}
-
-void car::move() {
-	vehicle::move();
-}
-
-// Player
-player::player(int _x, int _y) {
-	x = _x;
-	y = _y;
-}
-
-int player::getX() {
-	return x;
-}
-
-int player::getY() {
-	return y;
-}
-
-char player::getSymbol() {
-	return symbol;
-}
-
-void player::up(int d = 1) {
-	x -= d;
-	if (x < 0) x = 0;
-}
-
-void player::down(int d = 1) {
-	x += d;
-}
-void player::left(int d = 1) {
-	y -= d;
-	if (y < 0) y = 0;
-}
-
-void player::right(int d = 1) {
-	y += d;
-}
-
-bool player::isDead() {
-	return dead;
-}
-
-bool player::isImpact(obstacle* animal) {
-	return x == animal->getX() and y == animal->getY();
+player::player(int x, int y, COORD start, COORD end):obstacle(PLAYER){
+    init(x, y, start, end, STOP);
 }

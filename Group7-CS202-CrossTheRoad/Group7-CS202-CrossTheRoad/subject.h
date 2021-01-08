@@ -1,121 +1,118 @@
-#ifndef subject_h
-#define subject_h
+#pragma once
 
 #include <iostream>
 #include <windows.h>
 #include <conio.h>
 #include <stdio.h>
 
+enum Obstacle {PLAYER = 0, DOG = 1, CAR2 = 2, TRUCK = 3, CAR = 4};
+enum Key {UP, DOWN, LEFT, RIGHT, UPLEFT, UPRIGHT, DOWNLEFT, DOWNRIGHT, STOP};
+
+const COORD s_obj[5] = {
+	{3,3},
+	{9, 4},
+	{8,3},
+	{17,4},
+	{4,3}
+};
+
+
+/*
+const COORD s_obj[7] = {
+	{3,3},
+	{4,3},
+	{4,3},
+	{4,3},
+	{4,3},
+	{4,3},
+	{4,3}
+};
+*/
+
+
+const int START_SPEED = 1;
+
+const COORD s_player = {3, 3};
+const unsigned char c_player[3 * 3 + 1] = ".O./|\\<\\.";
+
+/* player : 3x3
+.O.
+/|\\
+<\\.
+*/
+
+const COORD s_car = {4, 3};
+const unsigned char c_car[4 * 3 + 1] = ".__.|__\\O..O";
+
+/* car 4*4
+.__.
+|__\\
+O..O
+*/
+
+const COORD s_dog = { 9, 4 };
+const unsigned char c_dog[9 * 4 + 1] = ".....__..(___()'`;/,..../`.\\\\'--\\\\..";
+
+//      __
+// (___()'`;
+// /,    /`
+// \\'--\\ 
+
+const COORD s_car2 = { 8, 3 };
+const unsigned char c_car2[8 * 3 + 1] = "...__.... /<>\\..(O)--(O)";
+
+/*
+	__
+   /<>\
+ (O)--(O)
+*/
+
+const COORD s_truck = { 17, 4 };
+const unsigned char c_truck[17 * 4 + 1] = "..._____________.._/_|[][][][][].|(......Group.7..|=--OO-------OO--=";
+
+/*
+   _____________
+ _/_|[][][][][] |
+(      Group 7  |
+=--OO-------OO--=
+*/
+
+
 class obstacle {
 protected:
 	//coordinates and velocity
-	int x, y, vx, vy;
+	int x, y, speed;
+	//identity
+	Obstacle id;
+	//state
+	Key state, last_state;
+	//range
+	COORD start, end;
+	//condition
+	bool isactive;
 public:
-	obstacle(); //This constructor set the initial x, y, vx, vy
+	COORD last_coord;
+	//Construtor
+	obstacle(Obstacle);
+	//Initialize
+	void init(int x, int y, COORD start, COORD end, Key mov = RIGHT);
 	//Access to private members
-	virtual int getX() = 0;
-	virtual int getY() = 0;
-	virtual char** getSymbol() = 0;
-	virtual void move() = 0; //Every time this is called vx is added to x, vy is added to y
-};
-
-class animal : public obstacle {
-public:
-	animal();
-	//Access to private members
+	void setXY(int, int);
+	void setSpeed(int);
+	void setActive(bool isactive);
+	void setAll(int x, int y, int speed, bool isactive);
 	int getX();
 	int getY();
-	virtual char** getSymbol() = 0;
-	void move(); //Every time this is called vx is added to x, vy is added to y
+	COORD getXY();
+	int getSpeed();
+	Obstacle getId();
+	bool isActive();
+	virtual void move(Key);
+	virtual bool update();
 };
 
-class dog : public animal {
-private:
-	char** a; // Contain the symbol;
+class player : public obstacle {
 public:
-	dog();
-	dog(int, int, int, int, int level);
-	//Access to private members
-	int getX();
-	int getY();
-	char** getSymbol();
-	void drawdog();
-	void move(); //Every time this is called vx is added to x, vy is added to y
+	player(int, int, COORD, COORD);
 };
 
-class bird :public animal {
-private:
-	char** a; // Contain the symbol;
-public:
-	bird();
-	bird(int, int, int, int, int level);
-	//Access to private members
-	int getX();
-	int getY();
-	char** getSymbol();
-	void drawbird();
-	void move(); //Every time this is called vx is added to x, vy is added to y
-};
-
-class vehicle :public obstacle {
-public:
-	vehicle();
-	//Access to private members
-	int getX();
-	int getY();
-	virtual char** getSymbol() = 0;
-	void move(); //Every time this is called vx is added to x, vy is added to y
-};
-
-class truck : public vehicle {
-private:
-	char** a; // Contain the symbol;
-public:
-	truck();
-	truck(int, int, int, int, int level);
-	//Access to private members
-	int getX();
-	int getY();
-	char** getSymbol();
-	void drawtruck();
-	void move(); //Every time this is called vx is added to x, vy is added to y
-};
-
-class car : public vehicle {
-private:
-	char** a; // Contain the symbol;
-public:
-	car();
-	car(int, int, int, int, int level);
-	//Access to private members
-	int getX();
-	int getY();
-	char** getSymbol();
-	void drawcar();
-	void move(); //Every time this is called vx is added to x, vy is added to y
-};
-
-class player {
-private:
-	int x, y;
-	bool dead = 0;
-	char symbol = 'Y';
-public:
-	// (0, 0) is at the top left corner
-	//x-axis points downwards, y points to the right
-	player(int, int); //This constructor set the initial x and y
-	//Access to private members
-	int getX();
-	int getY();
-	char getSymbol();
-	bool isDead();
-	//Moving by some distance
-	void up(int);
-	void down(int);
-	void left(int);
-	void right(int);
-	//impact or not (this does not modify dead state)
-	bool isImpact(obstacle*);
-};
-
-#endif
