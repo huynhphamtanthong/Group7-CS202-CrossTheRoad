@@ -12,7 +12,7 @@
 class menu {
 public:
     void color(int color);
-    void init();
+    void init(); //display a menu
 private:
     int counter = 1;
 };

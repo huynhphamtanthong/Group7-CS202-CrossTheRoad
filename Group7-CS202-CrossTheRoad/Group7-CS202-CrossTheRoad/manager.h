@@ -10,7 +10,7 @@
 
 class manager {
 public:
-    void init();
+    void init(); //set up the resolution and console window and call the menu
 private:
 };
 
