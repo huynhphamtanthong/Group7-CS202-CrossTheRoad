@@ -29,16 +29,17 @@ public:
 	void move(); //Every time this is called vx is added to x, vy is added to y
 };
 
-class dinosaur : public animal {
+class dog : public animal {
 private:
 	char** a; // Contain the symbol;
 public:
-	dinosaur();
-	dinosaur(int, int, int, int, int level);
+	dog();
+	dog(int, int, int, int, int level);
 	//Access to private members
 	int getX();
 	int getY();
 	char** getSymbol();
+	void drawdog();
 	void move(); //Every time this is called vx is added to x, vy is added to y
 };
 
@@ -52,6 +53,7 @@ public:
 	int getX();
 	int getY();
 	char** getSymbol();
+	void drawbird();
 	void move(); //Every time this is called vx is added to x, vy is added to y
 };
 
@@ -75,6 +77,7 @@ public:
 	int getX();
 	int getY();
 	char** getSymbol();
+	void drawtruck();
 	void move(); //Every time this is called vx is added to x, vy is added to y
 };
 
@@ -88,6 +91,7 @@ public:
 	int getX();
 	int getY();
 	char** getSymbol();
+	void drawcar();
 	void move(); //Every time this is called vx is added to x, vy is added to y
 };
 
