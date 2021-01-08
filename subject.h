@@ -6,35 +6,11 @@
 #include <conio.h>
 #include <stdio.h>
 
-<<<<<<< Updated upstream
-enum Obstacle {ANIMAL, DINOSAUR, BIRD, VEHICLE, TRUCK, CAR, PLAYER};
-=======
 enum Obstacle {ANIMAL, DOG, BAT, VEHICLE, BUS, CAR, PLAYER};
->>>>>>> Stashed changes
 enum Key {UP, DOWN, LEFT, RIGHT, UPLEFT, UPRIGHT, DOWNLEFT, DOWNRIGHT, STOP};
 
 const int START_SPEED = 1;
 
-<<<<<<< Updated upstream
-const COORD s_player = {3, 3};
-const unsigned char c_player[3 * 3 + 1] = ".O./|\\<\\.";
-
-/* player : 3x3
-.O.
-/|\\
-<\\.
-*/
-
-const COORD s_car = {4, 3};
-const unsigned char c_car[4 * 3 + 1] = ".__.|__\\O..O";
-
-/* car 4*4
-.__.
-|__\\
-O..O
-*/
-
-=======
 const COORD s_player = {5, 4};
 const unsigned char c_player[5 * 4 + 1] = " ,,, (o o) /_\\  ``` ";
 
@@ -88,7 +64,6 @@ const unsigned char c_bus[17 * 4 + 1] = "   _____________  _/_|[][][][][] |(    
 
 
 
->>>>>>> Stashed changes
 class obstacle {
 protected:
 	//coordinates and velocity
