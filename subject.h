@@ -6,11 +6,16 @@
 #include <conio.h>
 #include <stdio.h>
 
+<<<<<<< Updated upstream
 enum Obstacle {ANIMAL, DINOSAUR, BIRD, VEHICLE, TRUCK, CAR, PLAYER};
+=======
+enum Obstacle {ANIMAL, DOG, BAT, VEHICLE, BUS, CAR, PLAYER};
+>>>>>>> Stashed changes
 enum Key {UP, DOWN, LEFT, RIGHT, UPLEFT, UPRIGHT, DOWNLEFT, DOWNRIGHT, STOP};
 
 const int START_SPEED = 1;
 
+<<<<<<< Updated upstream
 const COORD s_player = {3, 3};
 const unsigned char c_player[3 * 3 + 1] = ".O./|\\<\\.";
 
@@ -29,6 +34,61 @@ const unsigned char c_car[4 * 3 + 1] = ".__.|__\\O..O";
 O..O
 */
 
+=======
+const COORD s_player = {5, 4};
+const unsigned char c_player[5 * 4 + 1] = " ,,, (o o) /_\\  ``` ";
+
+/* 
+   ,,,
+  (o o)
+   /_\
+   ``` 
+*/
+
+const COORD s_dog = {9, 4};
+const unsigned char c_dog[9 * 4 + 1] ="     __  (___()'`;/,    /` \\\\'--\\\\  ";
+
+//      __
+// (___()'`;
+// /,    /`
+// \\'--\\ 
+
+
+const COORD s_bat = {23, 7};
+const unsigned char c_bat[23 * 7 + 1]= " /\\                 /\\ / \\'._   (\\_/)   _.'/ \\|.''._'--(o.o)--'_.''.| \\_ / `;=/ ' \\=;` \\ _/    `\\__| \\___/ |__/`           \\(/|\\)/                 ' ` '         ";
+/*
+ /\                 /\
+/ \'._   (\_/)   _.'/ \
+|.''._'--(o.o)--'_.''.|
+ \_ / `;=/ ' \=;` \ _/
+   `\__| \___/ |__/`
+        \(/|\)/       
+         ' ` '
+*/
+
+const COORD s_car = {8, 3};
+const unsigned char c_car[8 * 3 + 1] = "   __     /<>\\  (O)--(O)";
+
+/*
+    __
+   /<>\ 
+ (O)--(O)
+*/
+
+const COORD s_bus = {17, 4};
+const unsigned char c_bus[17 * 4 + 1] = "   _____________  _/_|[][][][][] |(      Group 7  |=--OO-------OO--=";
+
+/*
+   _____________ 
+ _/_|[][][][][] |
+(      Group 7  |
+=--OO-------OO--=
+*/
+
+
+
+
+>>>>>>> Stashed changes
 class obstacle {
 protected:
 	//coordinates and velocity
