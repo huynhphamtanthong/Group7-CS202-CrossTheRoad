@@ -42,7 +42,7 @@ dog::dog() {
 		for (int j = 0; j < 20;++j)
 			a[i][j] = ' ';
 	}
-	a = { 0 };
+	drawdog();
 }
 
 dog::dog(int _x, int _y, int _vx, int _vy, int level) {
@@ -57,7 +57,7 @@ dog::dog(int _x, int _y, int _vx, int _vy, int level) {
 		for (int j = 0; j < 20;++j)
 			a[i][j] = ' ';
 	}
-	a = { 0 };
+	drawdog();
 }
 
 int dog::getX() {
@@ -137,7 +137,7 @@ bird::bird(int _x, int _y, int _vx, int _vy, int level) {
 		for (int j = 0; j < 20;++j)
 			a[i][j] = ' ';
 	}
-	a = { 0 };
+	drawbird();
 }
 
 int bird::getX() {
@@ -198,7 +198,7 @@ truck::truck() {
 		for (int j = 0; j < 20;++j)
 			a[i][j] = ' ';
 	}
-	a = { 0 };
+	drawtruck();
 }
 
 truck::truck(int _x, int _y, int _vx, int _vy, int level) {
@@ -213,7 +213,7 @@ truck::truck(int _x, int _y, int _vx, int _vy, int level) {
 		for (int j = 0; j < 20;++j)
 			a[i][j] = ' ';
 	}
-	a = { 0 };
+	drawtruck();
 }
 
 int truck::getX() {
